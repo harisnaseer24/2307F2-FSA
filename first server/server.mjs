@@ -6,7 +6,7 @@ import fs from  'node:fs';
 
 // const data = JSON.parse(fs.readFileSync("data.json","utf-8"));
 const data = JSON.parse(fs.readFileSync("data.json","utf-8"));
-const products=data.products;
+let products=data.products;
 
 
 
@@ -63,7 +63,7 @@ app.get('/', (req, res) =>{
 //   res.json({name:name, age:age,city:city})
 // })
 
-// 12-9-2025
+// 12-9-2025 (REST API) 
 app.get('/products', (req, res) =>{
 
   try {
@@ -81,7 +81,7 @@ app.get('/product/:id', (req, res) =>{
   try {
 let id= req.params.id;
 let product = products.find((prd)=>{
-  return prd.id== id
+  return prd.id == id
 })
 if (product) {
   res.status(200).json({message:"Product found",product:product});
@@ -93,6 +93,51 @@ if (product) {
     res.status(500).json({message:error.message})
   }
 })
+
+//add product :
+app.post('/addproduct', (req, res) =>{
+  try {
+    let newProduct= req.body;
+   let addProduct= products.push(newProduct);
+
+console.log(newProduct);
+if (addProduct) {
+  res.status(200).json({message:"Product added",product:newProduct});
+} else {
+  res.status(404).json({message:"No product found"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+})
+
+//Delete product
+
+app.delete('/deleteproduct/:id', (req, res) =>{
+  try {
+    let id = req.params.id;
+    let deletedProduct= products.find((prd)=>{
+  return prd.id == id
+})
+let filteredProducts= products.filter((item)=>{item.id != id})
+console.log(deletedProduct);
+products=filteredProducts;
+
+
+if (filteredProducts) {
+  res.status(200).json({message:"Product deleted successfully",product:deletedProduct});
+} else {
+  res.status(404).json({message:"Can't delete right now"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+})
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

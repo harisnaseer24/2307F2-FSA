@@ -8,7 +8,7 @@ const productSchema = new Schema({
     type: Number,
     required: [true, "Price is Required"],
   },
-  discountPercentage: {
+  discount: {
     type: Number,
     min: [0, "Minimum discount of product must be 0"],
     required: [true, "discount is Required"],

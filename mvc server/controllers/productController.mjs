@@ -9,7 +9,7 @@ import Product from '../models/productModel.mjs';
 
 
 
-
+// fetch all products
 let index =async (req, res) => {
    try {
     let products= await Product.find();
@@ -65,7 +65,7 @@ let addProduct =async (req, res) => {
 
 
 
-
+//get product by id
 let singleProduct = async (req, res) => {
     try {
 let id= req.params.id;
@@ -81,14 +81,90 @@ if (product) {
   }
 }
 
+//get product by brand
+let getProductByBrand = async (req, res) => {
+    try {
+let brand= req.params.brand;
+let products = await Product.find({brand:brand}) // find returns an array of objects
+if (products.length > 0) {
+  res.status(200).json({message:`Showing products of ${brand}`,products:products});
+} else {
+  res.status(404).json({message:"No product found"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+}
 
+//delete a product
+let deleteProduct = async (req, res) => {
+    try {
+let id= req.params.id;
+let delProduct = await Product.deleteOne(id)
+if (delProduct) {
+  res.status(200).json({message:"Product deleted successfully..!",product:delProduct});
+} else {
+  res.status(404).json({message:"No product found"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+}
 
+// editProduct - put request
+let editProduct =async (req, res) => {
+   try {
+    const id=req.params.id;
+    const prod= await Product.findById(id);
+if (prod) {
 
+    const product=req.body;
+    let updatedProduct= new Product(
+      {
+
+        _id:id,
+        title:product.title,
+        description:product.description,
+        price:product.price,
+        discount:product.discount,
+        stock:product.stock,
+        brand:product.brand,
+        category:product.category,
+        rating:product.rating,
+        images:product.images,
+
+      }
+    )
+    let updateprod =await Product.updateOne({_id:id},updatedProduct);
+    if (updateprod) {
+      res.status(200).json({message:"Product updated successfully",product:updateprod});
+      
+    } else {
+      res.status(500).json({message:"Failed to edit product"});
+      
+    }
+      
+    } else {
+      res.status(500).json({message:"Failed to edit product"});
+      
+    }
+    
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+}
 
 const productController= {
     index,
     addProduct,
-    singleProduct
+    singleProduct,
+    getProductByBrand,
+    deleteProduct,
+    editProduct
  }
 
 

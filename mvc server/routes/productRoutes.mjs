@@ -1,5 +1,6 @@
 import express from 'express'
 import productController from '../controllers/productController.mjs';
+import { upload } from '../cloudinaryConfig.mjs';
 
 const productRouter= express.Router();
 
@@ -12,6 +13,10 @@ productRouter
 
 //post requests
 .post("/add",productController.addProduct)
+//multer middleware
+
+
+.post("/addproduct",  upload.single("image")   ,productController.addProductWithImage)
 
 
 //delete requests

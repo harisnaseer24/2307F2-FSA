@@ -158,13 +158,52 @@ if (prod) {
   }
 }
 
+
+
+// Image Upload
+// add product
+let addProductWithImage =async (req, res) => {
+   try {
+console.log(req.file.path)
+    const product=req.body;
+    let newProduct= new Product(
+      {
+        title:product.title,
+        description:product.description,
+        price:product.price,
+        discount:product.discount,
+        stock:product.stock,
+        brand:product.brand,
+        category:product.category,
+        rating:product.rating,
+        images:[req.file.path],
+
+      }
+    )
+    let addprod =await newProduct.save();
+    if (addprod) {
+      res.status(200).json({message:"Product added successfully",product:addprod});
+      
+    } else {
+      res.status(500).json({message:"Failed to add product"});
+      
+    }
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+}
+
+
 const productController= {
     index,
     addProduct,
     singleProduct,
     getProductByBrand,
     deleteProduct,
-    editProduct
+    editProduct,
+    addProductWithImage
  }
 
 

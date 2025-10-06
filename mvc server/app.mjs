@@ -1,10 +1,12 @@
 import express from 'express'
 import productRouter from './routes/productRoutes.mjs'
 import mongoose from 'mongoose';
+import dotenv from 'dotenv'
 
+dotenv.config();
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -20,7 +22,7 @@ app.use("/product",productRouter)
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb+srv://harisTest:Zu2mZpeMgjK4SpM1@cluster0.cnwrfjk.mongodb.net/2307F2');
+  await mongoose.connect(process.env.MONGO_URL);
   console.log("MongoDB Connected Successfully")
 
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled

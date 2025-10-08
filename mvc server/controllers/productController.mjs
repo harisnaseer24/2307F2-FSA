@@ -157,14 +157,16 @@ if (prod) {
     res.status(500).json({message:error.message})
   }
 }
-
-
-
 // Image Upload
 // add product
 let addProductWithImage =async (req, res) => {
    try {
-console.log(req.file.path)
+    //  console.log(req.file.path)
+console.log(req.files)
+let imagesArray= [];
+req.files.forEach(element => {
+  imagesArray.push(element.path)
+});
     const product=req.body;
     let newProduct= new Product(
       {
@@ -176,7 +178,8 @@ console.log(req.file.path)
         brand:product.brand,
         category:product.category,
         rating:product.rating,
-        images:[req.file.path],
+        // images:[req.file.path],
+        images:imagesArray,
 
       }
     )

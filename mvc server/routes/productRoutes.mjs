@@ -16,7 +16,8 @@ productRouter
 //multer middleware
 
 
-.post("/addproduct",  upload.single("image")   ,productController.addProductWithImage)
+// .post("/addproduct",  upload.single("image")   ,productController.addProductWithImage)
+.post("/addproduct",  upload.array("image",5)   ,productController.addProductWithImage)
 
 
 //delete requests

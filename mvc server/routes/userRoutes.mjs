@@ -11,5 +11,11 @@ userRouter
 
 //post requests
 .post("/signup",userController.Signup)
+.post("/login",userController.Login)
 
+
+
+//delete Request
+
+.delete("/:id",userController.DeleteUser)
 export default userRouter;

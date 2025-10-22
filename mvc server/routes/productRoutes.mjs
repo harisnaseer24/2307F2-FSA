@@ -2,13 +2,19 @@
 import express from 'express'
 import productController from '../controllers/productController.mjs';
 import { upload } from '../cloudinaryConfig.mjs';
+import auth from '../controllers/middlewares/auth.mjs';
 
 const productRouter= express.Router();
 
 // productRouter.get("route",function)
 productRouter
 //get requests
+
+
 .get("/",productController.index)
+// .get("/",auth,productController.index)
+
+
 .get("/:id",productController.singleProduct)
 .get("/brand/:brand",productController.getProductByBrand)
 

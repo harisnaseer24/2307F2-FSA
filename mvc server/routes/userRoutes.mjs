@@ -15,6 +15,10 @@ userRouter
 
 
 
+.post("/sendEmail",userController.sendEmail)
+
+
+
 //delete Request
 
 .delete("/:id",userController.DeleteUser)

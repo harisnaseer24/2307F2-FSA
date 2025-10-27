@@ -10,8 +10,13 @@ import Footer from './components/Footer';
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import Wishlist from "./components/Wishlist";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import AddProduct from "./pages/AddProduct";
 
 function App() {
+
 
 
 
@@ -22,13 +27,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<About  />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />    
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/add" element={<AddProduct />} />
       </Routes>
     </>
   );

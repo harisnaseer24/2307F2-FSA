@@ -11,6 +11,7 @@ import axios from 'axios';
 
 const Home = () => {
   const [products,setProducts]= useState([])
+  const [categories,setCategories]= useState([])
 // api - call to fetch all products
 
 
@@ -25,15 +26,28 @@ setProducts(response.data.products)
   }
 }
 
+//Getting unique categories from products
+products.map((item)=>{
+  let category={
+    title:item.category,
+  }
+
+  if(!categories.find((cat)=>cat.title===item.category)){
+    setCategories([...categories,category])
+  }
+  console.log(category)
+})
+
 
 useEffect(()=>{
   getProducts();
 },[])
 
+
   return (
     <div>
       <Banner />
-      <Categories />
+      <Categories categories ={categories}/>
       <BestSelling />
       <Products allproducts={products} />
       <Footer/>

@@ -42,7 +42,7 @@ let Signup = async (req, res) => {
       let adduser = await newUser.save();
       if (adduser) {
         res
-          .status(200)
+          .status(201)
           .json({ message: "Registration is sucessfull.", user: adduser });
       } else {
         res.status(500).json({ message: "Failed to register user" });

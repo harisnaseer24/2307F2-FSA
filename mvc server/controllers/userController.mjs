@@ -70,7 +70,7 @@ let Login = async (req, res) => {
 
       if (checkPassword) {
         const token = await jwt.sign({ checkUser }, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+          expiresIn: "24h",
         });
         console.log(token);
         res

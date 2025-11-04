@@ -5,6 +5,8 @@ import axios from 'axios';
 
 const AddProduct = () => {
 
+  const [token, setToken]=useState("")
+
     // console.log(categories)
     // const [mycategories,setCategories]= useState([...categories])
     const addProduct= async (e)=>{
@@ -46,6 +48,7 @@ let add = await axios.post("http://localhost:3000/product/addproduct",formData,
    {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
         },
       }
 
@@ -73,6 +76,11 @@ let add = await axios.post("http://localhost:3000/product/addproduct",formData,
     }
 
 
+    useEffect(()=>{
+      let jwtToken= localStorage.getItem("token") || ""
+      setToken(jwtToken)
+
+    })
 
 
 

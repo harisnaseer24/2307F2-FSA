@@ -1,13 +1,21 @@
 // src/components/Navbar.jsx
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useCart } from "./cartContext";
 import { useWishlist } from "./WishlistContext";
 
-const Navbar = () => {
+const Navbar = ({isLoggedin,Logout}) => {
+
+  const navigate= useNavigate();
+
+
   const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart();
   const { wishlist } = useWishlist();
+
+ 
+  
+ 
 
   return (
     <>
@@ -70,9 +78,17 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link className="nav-link text-white" to="/contact">Contact</Link>
               </li>
-              <li className="nav-item">
+             {
+
+
+isLoggedin? (
+ <li className="nav-item">
+                <button className="nav-link text-white" onClick={Logout}>Logout</button>
+              </li>
+):  <li className="nav-item">
                 <Link className="nav-link text-white" to="/signup">Sign Up</Link>
               </li>
+             }
             </ul>
             <div className="d-flex align-items-center gap-3 ms-auto">
               <Link to="/wishlist" className="position-relative text-decoration-none">

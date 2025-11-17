@@ -44,7 +44,7 @@ formData.append("stock",stock);
 formData.append("discount",discountPercentage);
 console.log(formData)
 
-let add = await axios.post("http://localhost:3000/product/addproduct",formData,
+let add = await axios.post("https://2307f2-fsa-deployment-production.up.railway.app/product/addproduct",formData,
    {
         headers: {
           'Content-Type': 'multipart/form-data',

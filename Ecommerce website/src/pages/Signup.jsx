@@ -52,7 +52,7 @@ const Signup = () => {
     // Signup ApI call can be made here
       try {
         console.log(formData)
-        const register= await axios.post("http://localhost:3000/user/signup",formData);
+        const register= await axios.post("https://2307f2-fsa-deployment-production.up.railway.app/user/signup",formData);
         if (register.status === 201 || register.status === 200) {
             console.log(register.data.message)
           alert(register.data.message);

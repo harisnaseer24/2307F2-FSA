@@ -48,7 +48,7 @@ const Login = () => {
  // Login ApI call can be made here
       try {
         console.log(formData)
-        const login= await axios.post("http://localhost:3000/user/login",formData);
+        const login= await axios.post("https://2307f2-fsa-deployment-production.up.railway.app/user/login",formData);
         if (login.status == 200) {
           let {token, user,message}=login.data
           let role=user.role

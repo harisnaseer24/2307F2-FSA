@@ -17,7 +17,7 @@ const Home = () => {
 
 const   getProducts=async ()=>{
   try {
-const response= await axios.get("http://localhost:3000/product");
+const response= await axios.get("https://2307f2-fsa-deployment-production.up.railway.app/product");
 console.log(response.data)
 setProducts(response.data.products)
     

@@ -14,18 +14,36 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import AddProduct from "./pages/AddProduct";
+import ProtectedRoute from "./components/Protectedroute";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
 
 
 
+    const [isLoggedin, setIsloggedin] = useState(false);
+     const Logout = ()=>{
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setIsloggedin(false)
+    navigate('/login');
 
-
+  }
+ 
+ useEffect(()=>{
+     const token = localStorage.getItem("token");
+  if(token){
+    setIsloggedin(true)
+}else{
+    setIsloggedin(false)
+    
+  }
+  },[])
   
   return (
     
     <>
-      <Navbar />
+      <Navbar isLoggedin={isLoggedin} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About  />} />
@@ -34,9 +52,28 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
+
+        <Route path="/cart" element={
+
+          <ProtectedRoute>
+            <Cart />
+
+          </ProtectedRoute>
+        } />
+
+
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/add" element={<AddProduct />} />
+
+
+        <Route path="/add" element={
+
+          <AdminRoute>
+            <AddProduct />
+
+          </AdminRoute>
+        } />
+
+        
       </Routes>
     </>
   );
